@@ -2,10 +2,9 @@
 // Démarrer la session
 session_start();
 
-// Vérifier si l'utilisateur est bien en possession d'un cookie valide
-// Dans le cas contraire il sera redirigé vers la page d'accueil de connexion
-if (!isset($_COOKIE['authToken']) || $_COOKIE['authToken'] !== '12345') {
-    header('Location: index.php');
+// Vérifier si l'utilisateur possède un cookie valide et que le jeton correspond à la session
+if (!isset($_COOKIE['authToken']) || !isset($_SESSION['authToken']) || $_COOKIE['authToken'] !== $_SESSION['authToken']) {
+    header('Location: index.php'); // Redirection vers la page de connexion
     exit();
 }
 ?>
@@ -15,7 +14,7 @@ if (!isset($_COOKIE['authToken']) || $_COOKIE['authToken'] !== '12345') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
+    <title>Accueil Administrateur</title>
 </head>
 <body>
     <h1>Bienvenue sur la page Administrateur protégée par un Cookie</h1>
